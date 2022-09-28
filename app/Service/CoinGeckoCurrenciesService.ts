@@ -1,8 +1,6 @@
 import CurrenciesList from "App/Model/CurrenciesList";
 import CurrenciesStorage from "App/Repository/CurrenciesStorage";
-
-
-const axios = require('Axios');
+import Axios from 'axios';
 
 export default class CoinGeckoCurrenciesService {
     
@@ -27,7 +25,7 @@ export default class CoinGeckoCurrenciesService {
         let success = true;
         let content : CurrenciesList | null = null;
         try {
-            const res = await axios.get("https://api.coingecko.com/api/v3/simple/supported_vs_currencies");
+            const res = await Axios.get("https://api.coingecko.com/api/v3/simple/supported_vs_currencies");
             if (res.status = 200){
                 data = res.data;
             }
