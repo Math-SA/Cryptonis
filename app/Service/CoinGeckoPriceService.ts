@@ -3,9 +3,8 @@ import CoinInfo from "App/Model/CoinInfo";
 import CoinPrice from "App/Model/CoinPrice";
 import CoinInfoStorage from "App/Repository/CoinInfoStorage";
 import CoinGeckoCurrenciesService from "./CoinGeckoCurrenciesService";
+import Axios from 'axios';
 
-
-const axios = require('Axios');
 
 export default class CoinGeckoPriceService {
 
@@ -33,7 +32,7 @@ export default class CoinGeckoPriceService {
             if (availableCurrencies != null){
                 currencies = availableCurrencies.currencies.join(',');
             }
-            const res = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currencies}&include_last_updated_at=true`);
+            const res = await Axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currencies}&include_last_updated_at=true`);
             if (res.status = 200){
                 data = res.data;
             }

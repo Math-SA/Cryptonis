@@ -1,8 +1,7 @@
 import Coin from "App/Model/Coin";
 import CoinsStorage from "App/Repository/CoinsStorage";
-
+import Axios from "axios";
     
-const axios = require('Axios');
 
 export default class CoinGeckoCoinsService {
 
@@ -31,7 +30,7 @@ export default class CoinGeckoCoinsService {
         let content : Array<Coin> | null = null;
         try {
             console.log('updading coins list from external source')
-            const res = await axios.get("https://api.coingecko.com/api/v3/coins/list");
+            const res = await Axios.get("https://api.coingecko.com/api/v3/coins/list");
             if (res.status = 200){
                 data = res.data;
             }
