@@ -14,6 +14,6 @@ https://devplay-cryptonis.onrender.com <br/>
 ## Endpoints usage instructions<br/>
 [GET] /coins <= Returns a list of all tracked coins<br/>
 
-[GET] /price/$coin <= Returns data for a given coin <br/>
+[GET] /price/$coin <= Returns data for a given coin. Update info includes time in seconds.<br/>
 
 [GET] /price/$coin/$currencies <== filters data for a given coin to only show the selected currencies (comma separated)<br/>
