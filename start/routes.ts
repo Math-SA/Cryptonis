@@ -20,8 +20,10 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', 'PriceController.index')
+Route.on('/').redirect('price.show', {coin:'bitcoin'});
 
-Route.get('/price/:coin?/:currencies?', 'PriceController.index')
+Route.get('/price/:coin?/:currencies?', 'PriceController.getPrices').as('price.show');
+
+Route.get('/coins/', 'CoinController.getValidCoins').as('coins.list');
 
 

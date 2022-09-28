@@ -9,4 +9,9 @@ export default class CoinPrice {
         this.value = value;
     }
 
+    public clone(){
+        let clone = new CoinPrice(this.coinId, this.currency, this.value);
+        return clone;
+    }
+
 }

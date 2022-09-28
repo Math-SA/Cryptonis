@@ -1,30 +1,25 @@
 import Coin from "App/Model/Coin";
 import CoinInfo from "App/Model/CoinInfo";
 import CoinPrice from "App/Model/CoinPrice";
-import CurrenciesList from "App/Model/CurrenciesList";
 import CoinInfoStorage from "App/Repository/CoinInfoStorage";
 import CoinGeckoCurrenciesService from "./CoinGeckoCurrenciesService";
+
 
 const axios = require('Axios');
 
 export default class CoinGeckoPriceService {
-    public async getBitCoinInfo(){
-        return this.getCoinFullInfo('bitcoin');
-    }
 
     public async getCoinFullInfo(coinId: string) : Promise<CoinInfo | null>{
-        let storage = new CoinInfoStorage();
         let coinInfo : CoinInfo|null = null;        
-        console.log(`Is the data still valid? Now: ${Date.now()/1000} > ${storage.getExpirationDate(coinId)} ?`);
-        if (Date.now()/1000 > storage.getExpirationDate(coinId)){
+        if (Date.now()/1000 > CoinInfoStorage.getExpirationDate(coinId)){//!CoinGecko sends date info as time in seconds instead of millis
             
             coinInfo = await this.retrieveCoinInfo(coinId);
             if (coinInfo != null) {
-                storage.store(coinInfo);
+                CoinInfoStorage.store(coinInfo);
             }
         }
         if (coinInfo == null){
-            coinInfo = storage.get(coinId);
+            coinInfo = CoinInfoStorage.get(coinId);
         }
         return coinInfo;
     }
@@ -34,11 +29,10 @@ export default class CoinGeckoPriceService {
         let success = true;
         try {
             let currencies = 'usd';
-            let availableCurrencies = (await new CoinGeckoCurrenciesService().listCurrencies());
+            let availableCurrencies = await CoinGeckoCurrenciesService.listCurrencies();
             if (availableCurrencies != null){
                 currencies = availableCurrencies.currencies.join(',');
             }
-            console.log('coin info - retrieving remote data.');
             const res = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currencies}&include_last_updated_at=true`);
             if (res.status = 200){
                 data = res.data;
@@ -86,7 +80,4 @@ export default class CoinGeckoPriceService {
         return info;
     }
 
-    public async filterCoinInfo(desiredCurrencies: CurrenciesList){
-
-    }
 }
