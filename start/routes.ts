@@ -26,4 +26,9 @@ Route.get('/price/:coin?/:currencies?', 'PriceController.getPrices').as('price.s
 
 Route.get('/coins/', 'CoinController.getValidCoins').as('coins.list');
 
+Route.get('/ping', (ctx)=>{
+    ctx.response.status(200);
+    ctx.response.send('pong');
+});
+
 
