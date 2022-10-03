@@ -28,4 +28,7 @@ Route.get('/coins/', 'CoinController.getValidCoins').as('coins.list');
 
 Route.get('/coins/:part', 'CoinController.filterCoins');
 
-
+Route.get('/ping', (ctx)=>{
+    ctx.response.status(200);
+    ctx.response.send('pong');
+});
