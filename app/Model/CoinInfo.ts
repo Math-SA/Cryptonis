@@ -16,7 +16,7 @@ export default class CoinInfo {
     public toJSON(){
         let prices = new Array<string>();
         this.prices.forEach((price)=>{
-            prices.push(`${price.currency}:${price.value}`);
+            prices.push(`"${price.currency}":${price.value}`);
         });
         return `{"coin":"${this.coin.id}", "current_price":{${prices.join(',')}}, "last_updated":${this.updatedAt} }`;
     }
