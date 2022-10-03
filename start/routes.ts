@@ -26,4 +26,6 @@ Route.get('/price/:coin?/:currencies?', 'PriceController.getPrices').as('price.s
 
 Route.get('/coins/', 'CoinController.getValidCoins').as('coins.list');
 
+Route.get('/coins/:part', 'CoinController.filterCoins');
+
 
