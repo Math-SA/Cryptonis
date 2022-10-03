@@ -20,7 +20,7 @@ export default class CoinGeckoCoinsService {
         if (coins == null){
             coins = CoinsStorage.list();
         }
-        return coins;
+        return Array.from(coins);
 
     }
 
