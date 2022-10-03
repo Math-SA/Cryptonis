@@ -17,10 +17,10 @@ export default class PriceController {
         let currencies = ctx.params.currencies;
         if (!(await CoinValidator.isValid(coin))){
             ctx.response.status(400);
-            content = `{error:"${coin} data is not available"}`;
+            content = `{"error":"${coin} data is not available"}`;
         }else if (currencies && !(await CurrencyValidator.isValid(currencies))){
             ctx.response.status(400);
-            content = `{error:"currencies data for ${currencies} is not available"}`;
+            content = `{"error":"currencies data for ${currencies} is not available"}`;
         }else{
             coinInfo = (await new CoinGeckoPriceService().getCoinFullInfo(coin));
             if (currencies){
@@ -33,7 +33,7 @@ export default class PriceController {
             }
             if (coinInfo==null){
                 ctx.response.status(400);
-                content = `{error:"unable to find info for ${coin}" }`;
+                content = `{"error":"unable to find info for ${coin}" }`;
             }else{
                 ctx.response.status(200);
                 content = coinInfo?.toJSON();
